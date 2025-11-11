@@ -4,7 +4,7 @@ import instance from "../lib/axios";
   User Onboarding Component APIs - APIs Used in User Onboarding Component
 */
 const onboarding_userRegister = async (params) => {
-  return await instance.clientOnboarding.post("/auth/users", params, {
+  return await instance.clientOnboarding.post("/users", params, {
     headers: instance.defaultHeaders(),
   });
 };

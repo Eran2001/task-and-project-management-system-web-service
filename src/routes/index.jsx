@@ -1,8 +1,8 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-const UserRegistration = lazy(() => import("@/pages/auth/register"));
-const Dashboard = lazy(() => import("@/pages/dashboard/index"));
+const UserRegistration = lazy(() => import("../pages/auth/register"));
+const Dashboard = lazy(() => import("@/pages/dashboard"));
 
 export const router = createBrowserRouter([
   {

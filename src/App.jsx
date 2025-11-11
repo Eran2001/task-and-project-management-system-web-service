@@ -1,7 +1,8 @@
 import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/index";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
+
+import { router } from "./routes/index";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       </Suspense>
 
       <ToastContainer
-        position="bottom-right"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop
