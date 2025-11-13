@@ -1,6 +1,4 @@
-import React from "react";
-import Select from "react-select";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -32,17 +30,21 @@ const UserLogin = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await API.private.onboarding_userLogin({
+      const payload = {
         username: data.username,
         password: data.password,
-      });
+      };
 
-      Notification.success("Login successful!");
-      console.log("✅ Response:", response);
+      const response = await API.private.onboarding_userLogin(payload);
+      if (response.data.message === "Welcome back Eran (admin)") {
+        Notification.success("Login successful!");
+      } else {
+        Notification.error("Login failed!");
+      }
       reset();
     } catch (error) {
-      console.error(error);
-      Notification.error("Login failed!");
+      Notification.error("Error occurred when logging!");
+      throw new error();
     }
   };
 
