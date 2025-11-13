@@ -44,15 +44,16 @@ const UserRegistration = () => {
       };
 
       const response = await API.private.onboarding_userRegister(payload);
-      if (response.data.message === "Welcome onboard Eran Neww (customer)") {
+      if (response.data.code === "OK") {
         Notification.success("Registration successful!");
         reset();
       } else {
         Notification.error("Login failed!");
       }
     } catch (error) {
-      Notification.error("Registration failed!");
-      throw new error();
+      if (error.response.data.code === "USER_EXISTS") {
+        Notification.error("User already exists, please try a different one!");
+      }
     }
   };
 

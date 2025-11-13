@@ -36,15 +36,22 @@ const UserLogin = () => {
       };
 
       const response = await API.private.onboarding_userLogin(payload);
-      if (response.data.message === "Welcome back Eran (admin)") {
+      if (response.data.message === "OK") {
         Notification.success("Login successful!");
       } else {
         Notification.error("Login failed!");
       }
       reset();
     } catch (error) {
-      Notification.error("Error occurred when logging!");
-      throw new error();
+      if (error.response.data.code) {
+        Notification.error(error.response.data.message);
+      } else if (error.response.data.code === "NOT_FOUND") {
+        Notification.error(error.response.data.message);
+      } else if (error.response.data.code === "UNAUTHORIZED") {
+        Notification.error(error.response.data.message);
+      } else {
+        Notification.error("Server error!");
+      }
     }
   };
 
