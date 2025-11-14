@@ -6,6 +6,7 @@ const useMobileMenu = () => {
   const dispatch = useDispatch();
   const mobileMenu = useSelector((state) => state.layout.mobileMenu);
   const location = useLocation();
+  console.log(location);
 
   // ** Toggles Mobile Menu
   const setMobileMenu = (val) => dispatch(handleMobileMenu(val));
