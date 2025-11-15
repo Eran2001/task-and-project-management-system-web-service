@@ -5,6 +5,7 @@ import * as yup from "yup";
 import TextInput from "@/components/ui/TextInput";
 import Notification from "@/components/ui/Notification";
 import API from "@/services";
+import token from "@/lib/utilities";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -36,8 +37,13 @@ const UserLogin = () => {
       };
 
       const response = await API.private.onboarding_userLogin(payload);
-      if (response.data.message === "OK") {
+      if (response.data.code === "OK") {
         Notification.success("Login successful!");
+
+        const { token: jwtToken, user } = response.data.data.result;
+        console.log(response.data.data.result);
+        token.setAuthToken(jwtToken);
+        token.setUserData(user);
       } else {
         Notification.error("Login failed!");
       }

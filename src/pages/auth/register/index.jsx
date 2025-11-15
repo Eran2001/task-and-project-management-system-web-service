@@ -9,6 +9,7 @@ import { roleOptions } from "@/constant/data";
 import TextInput from "@/components/ui/TextInput";
 import Notification from "@/components/ui/Notification";
 import API from "@/services";
+import token from "@/lib/utilities";
 
 const schema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -46,6 +47,10 @@ const UserRegistration = () => {
       const response = await API.private.onboarding_userRegister(payload);
       if (response.data.code === "OK") {
         Notification.success("Registration successful!");
+
+        const { token: jwtToken, user } = response.data.data.result;
+        token.setAuthToken(jwtToken);
+        token.setUserData(user);
         reset();
       } else {
         Notification.error("Login failed!");
